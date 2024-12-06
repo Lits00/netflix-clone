@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import endpoints from "../services/movieServices";
+import endpoints, { createImageUrl } from "../services/movieServices";
+import Spinner from "./Spinner";
 
 const Hero = () => {
   const [movie, setMovie] = useState({});
@@ -24,7 +25,7 @@ const Hero = () => {
   if (!movie)
     return (
       <>
-        <p>fetching movie...</p>
+        <Spinner />
       </>
     );
 
@@ -36,7 +37,7 @@ const Hero = () => {
         <div className="absolute w-full h-[550px] lg:h-[824px] bg-gradient-to-r from-black"></div>
         <img
           className="w-full h-full object-cover object-top"
-          src={`https://image.tmdb.org/t/p/original/${backdrop_path}`}
+          src={createImageUrl(backdrop_path, "original")}
           alt={title}
         />
         <div className="absolute w-full top-[20%] lg:top-[45%] p-4 md:p-8">
