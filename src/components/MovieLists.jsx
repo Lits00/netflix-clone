@@ -9,12 +9,11 @@ const MovieLists = ({ title, url }) => {
     axios.get(url).then((response) => setMovies(response.data.results));
   }, [url]);
 
-  console.log(movies)
   return (
     <>
-      <h2 className="font-nsans-bold capitalize md:text-2xl p-4">{title}</h2>
+      <h2 className="font-nsans-bold capitalize md:text-2xl px-4 pt-3">{title}</h2>
 
-      <div className="relative flex items-center">
+      <div className="relative flex items-center px-2">
         <div
           id={`slider`}
           className="w-full h-full overflow-x-scroll whitespace-nowrap scroll-smooth scrollbar-hide"
