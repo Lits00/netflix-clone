@@ -27,7 +27,7 @@ const Login = () => {
       <div className="bg-black/70 fixed top-0 left-0 w-full h-screen" />
 
       <div className="fixed w-full px-4 py-24 z-20">
-        <div className="max-w-[450px] h-[500px] mx-auto bg-black/80 rounded-lg">
+        <div className="max-w-[450px] h-[550px] mx-auto bg-black/80 rounded-lg">
           <div className="max-w-[320px] mx-auto py-16">
             <h1 className="text-3xl font-nsans-bold">Login</h1>
             {/* Login Form */}
@@ -73,6 +73,12 @@ const Login = () => {
                 </div>
                 <p>Need help?</p>
               </div>
+              <p className="my-4">
+                <span className="text-gray-600 mr-2">
+                  New to Notflix?
+                </span>
+                <Link to="/sign-up">Sign Up</Link>
+              </p>
             </form>
           </div>
         </div>
