@@ -7,11 +7,13 @@ const override = {
 
 const Spinner = () => {
   return (
-    <ClipLoader
-      color="#4338ca"
-      cssOverride={override}
-      size={150}
-    />
+    <div className="flex justify-center items-center h-screen">
+      <ClipLoader
+        color="#EB1616"
+        cssOverride={override}
+        size={100}
+      />
+    </div>
   );
 };
 
