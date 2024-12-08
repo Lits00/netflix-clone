@@ -7,7 +7,7 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { user, signUp } = UserAuth();
+  const { signUp } = UserAuth();
   const navigate = useNavigate();
 
   const toggleBox = () => {
@@ -21,7 +21,7 @@ const Signup = () => {
     // console.log(password);
     try {
       await signUp(email, password);
-      navigate("/login");
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
