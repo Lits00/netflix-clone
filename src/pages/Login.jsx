@@ -1,20 +1,30 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { UserAuth } from "../context/AuthContext";
 
 const Login = () => {
   const [rememberMe, setRememberMe] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const { user, logIn } = UserAuth();
+  const navigate = useNavigate();
+
   const toggleBox = () => {
     setRememberMe((prevState) => !prevState);
   };
 
-  const formSubmit = (e) => {
+  const formSubmit = async (e) => {
     e.preventDefault();
 
     // console.log(email);
     // console.log(password);
+    try {
+      await logIn(email, password);
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -74,9 +84,7 @@ const Login = () => {
                 <p>Need help?</p>
               </div>
               <p className="my-4">
-                <span className="text-gray-600 mr-2">
-                  New to Notflix?
-                </span>
+                <span className="text-gray-600 mr-2">New to Notflix?</span>
                 <Link to="/sign-up">Sign Up</Link>
               </p>
             </form>
