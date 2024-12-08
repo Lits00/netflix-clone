@@ -22,7 +22,7 @@ const Navbar = () => {
           notflix
         </h1>
       </Link>
-      {console.log(user)}
+      {/* the "?." at the ternary operator condition is an "optional chaining" introduced in ECMAScript 2020 or (ES11) */}
       {user?.email ? (
         <div>
           <Link to={`/profile`}>
