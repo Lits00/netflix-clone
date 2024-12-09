@@ -6,6 +6,7 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 import { auth, db } from "../services/firebase";
+import { doc, setDoc } from "firebase/firestore";
 
 const AuthContext = createContext();
 
@@ -24,6 +25,9 @@ export function AuthContextProvider({ children }) {
 
   function signUp(email, password) {
     createUserWithEmailAndPassword(auth, email, password);
+    setDoc(doc(db, "users", email), {
+      liked: [],
+    });
   }
 
   function logIn(email, password) {
