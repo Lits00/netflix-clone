@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { createImageUrl } from "../services/movieServices";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
-import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
+import { arrayRemove, arrayUnion, doc, updateDoc, onSnapshot } from "firebase/firestore";
 import { db } from "../services/firebase";
 import { UserAuth } from "../context/AuthContext";
 
@@ -16,7 +16,7 @@ const MovieCard = ({ movie }) => {
     if (userEmail) {
       const userDoc = doc(db, "users", userEmail);
       setLike((prevState) => !prevState);
-      if(like) {
+      if (like) {
         await updateDoc(userDoc, {
           liked: arrayRemove({ ...movie }),
         });
@@ -29,6 +29,27 @@ const MovieCard = ({ movie }) => {
       alert("Please login to like a movie.");
     }
   };
+
+  useEffect(() => {
+    const userEmail = user?.email;
+
+    if (userEmail) {
+      const userDoc = doc(db, "users", userEmail);
+
+      // Use onSnapshot to listen for real-time updates
+      const unsubscribe = onSnapshot(userDoc, (doc) => {
+        if (doc.exists()) {
+          const likedMovies = doc.data()?.liked || [];
+          // Check if the current movie is in the liked list
+          const isLiked = likedMovies.some((likedMovie) => likedMovie.id === movie.id);
+          setLike(isLiked);
+        }
+      });
+
+      // Cleanup listener when the component unmounts
+      return () => unsubscribe();
+    }
+  }, [user?.email]);
 
   return (
     <div className="relative inline-block rounded-lg overflow-hidden cursor-pointer w-[160px] sm:w-[200px] md:w-[240px] lg:w-[280px] m-2">

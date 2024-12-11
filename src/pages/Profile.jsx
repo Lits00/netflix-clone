@@ -24,9 +24,13 @@ const Profile = () => {
 
   useEffect(() => {
     if (user) {
-      onSnapshot(doc(db, "users", `${user.email}`), (doc) => {
-        if (doc.data()) setMovies(doc.data().liked);
-      });
+      const unsubscribe = onSnapshot(
+        doc(db, "users", `${user.email}`),
+        (doc) => {
+          if (doc.data()) setMovies(doc.data().liked);
+        }
+      );
+      return () => unsubscribe();
     }
   }, [user?.email]);
 
